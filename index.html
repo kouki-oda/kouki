@@ -26,12 +26,12 @@
       scale="2.5 2.5 2.5"
       visible="false"
     ></a-entity>
-    <a-sky id="sky" src="R0010219.JPG" rotation="0 -80 0"></a-sky>
+    <a-sky id="sky" src="R0010219.JPG" rotation="0 -95 0"></a-sky>
     <a-entity id="bgm" sound="src: url(bgm01.mp3); autoplay: false; loop: true;"></a-entity>
     <a-entity id="sound1" sound="src: url(sound01.mp3); autoplay: false; loop: false;"></a-entity>
     <a-entity id="sound2" sound="src: url(sound02.mp3); autoplay: false; loop: false;"></a-entity>
-    <a-entity id="sound3" sound="src: url(sound03.mp3); autoplay: false; loop: false;"></a-entity>
-    <a-entity id="sound4" sound="src: url(sound04.mp3); autoplay: false; loop: false;"></a-entity>
+    <a-entity id="sound3" sound="src: url(zombie_eating1.mp3); autoplay: false; loop: false;"></a-entity>
+    <a-entity id="sound4" sound="src: url(waraigoe.mp3); autoplay: false; loop: false;"></a-entity>
     <a-entity camera look-controls>
       <a-entity cursor="fuse: false"
                 position="0 -2.0 0"
@@ -80,21 +80,26 @@
           // BGMが3秒再生されたらモデル表示＆anime01
           setTimeout(function () {
             modelEl.setAttribute('visible', true);
-            modelEl.setAttribute('position', '0 -2.0 -6');
+            modelEl.setAttribute('position', '0 -2.0 -10');
+            sound3El.components.sound.playSound();
             modelEl.setAttribute('animation-mixer', {clip: 'anime01', loop: 'false', repetitions: 1, timeScale: 1, clampWhenFinished: true});
 
             // anime01(5.5秒)終了後にanime04へ（1回再生）
             setTimeout(function () {
-              modelEl.setAttribute('animation-mixer', {clip: 'anime04', loop: 'false', repetitions: 1, timeScale: 1, clampWhenFinished: true});
+              sound3El.components.sound.stopSound();
+              sound4El.components.sound.playSound();
+              modelEl.setAttribute('animation-mixer', {clip: 'anime04', loop: 'false', repetitions: 1, timeScale: 0.4, clampWhenFinished: true});
 
               // anime04(4.0秒×1回=4.0秒)終了後にanime03へ（4回再生、移動、sound01）
               setTimeout(function () {
-                modelEl.setAttribute('animation-mixer', {clip: 'anime03', loop: 'false', repetitions: 4, timeScale: 1, clampWhenFinished: true});
-                modelEl.setAttribute('animation__position', 'property: position; to: 0 -2.0 -2; dur: 2800; easing: easeInSine; loop: false');
-                sound1El.components.sound.playSound();
+                
+                modelEl.setAttribute('animation-mixer', {clip: 'anime06', loop: 'false', repetitions: 5, timeScale: 1.2, clampWhenFinished: true});
+                modelEl.setAttribute('animation__position', 'property: position; to: 0 -2.0 -1.5; dur: 6000; easing: easeInSine; loop: false');
+                // sound1El.components.sound.playSound();
 
                 // anime03(0.7秒×4回=2.8秒)終了後にanime01へ（3回再生、sound02）
                 setTimeout(function () {
+                  sound4El.components.sound.stopSound();
                   modelEl.setAttribute('animation-mixer', {clip: 'anime01', loop: 'false', repetitions: 3, timeScale: 1, clampWhenFinished: true});
                   modelEl.removeAttribute('animation__position');
                   sound2El.components.sound.playSound();
@@ -107,15 +112,15 @@
                     // anime02(4.533秒×1回=4.533秒)終了後にページ遷移
                     setTimeout(function () {
                       window.location.href = '../vr05/';
-                    }, 4533 * 1);
+                    }, 1 * 1);
 
-                  }, 5500 * 1);
+                  }, 1 * 1);
 
-                }, 700 * 4);
+                }, 6000);
 
-              }, 4000);
+              }, 5000);
 
-            }, 5500);
+            }, 4000);
 
           }, 3000); // BGM3秒後
         }
