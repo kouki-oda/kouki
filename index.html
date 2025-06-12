@@ -92,9 +92,9 @@
 
               // anime04(4.0秒×1回=4.0秒)終了後にanime03へ（4回再生、移動、sound01）
               setTimeout(function () {
-                
-                modelEl.setAttribute('animation-mixer', {clip: 'anime06', loop: 'false', repetitions: 5, timeScale: 1.2, clampWhenFinished: true});
-                modelEl.setAttribute('animation__position', 'property: position; to: 0 -2.0 -1.5; dur: 6000; easing: easeInSine; loop: false');
+                modelEl.setAttribute('position', '0 -1.8 -10');
+                modelEl.setAttribute('animation-mixer', {clip: 'anime06', loop: 'false', repetitions: 5, timeScale: 0.6, clampWhenFinished: true});
+                modelEl.setAttribute('animation__position', 'property: position; to: 0 -2.0 -1.5; dur: 5500; easing: easeInSine; loop: false');
                 // sound1El.components.sound.playSound();
 
                 // anime03(0.7秒×4回=2.8秒)終了後にanime01へ（3回再生、sound02）
@@ -116,7 +116,7 @@
 
                   }, 1 * 1);
 
-                }, 6000);
+                }, 5500);
 
               }, 5000);
 
