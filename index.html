@@ -42,8 +42,17 @@
   </a-scene>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      // 【追加】A-Frameシーンの準備完了を待ってからVRモードに切り替え
       const sceneEl = document.querySelector('a-scene');
+
       sceneEl.addEventListener('loaded', function () {
+
+        console.log('A-Frameシーンが読み込まれました。VRモードに切り替えます。');
+        // VRモードに自動切り替え
+        if (sceneEl.enterVR) {
+          sceneEl.enterVR();
+        }
+
         const modelEl = document.getElementById('myModel');
         const bgmEl = document.getElementById('bgm');
         const sound1El = document.getElementById('sound1');
@@ -97,7 +106,7 @@
 
                     // anime02(4.533秒×1回=4.533秒)終了後にページ遷移
                     setTimeout(function () {
-                      window.location.href = 'https://seiei.ac.jp/';
+                      window.location.href = '../vr05/';
                     }, 4533 * 1);
 
                   }, 5500 * 1);
